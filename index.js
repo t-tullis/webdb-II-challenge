@@ -36,7 +36,11 @@ server.get('/api/zoos/:id', (req, res) => {
   db('zoos').where({ id })
   .first()
   .then(zoo => {
+    if(zoo > 0){
     res.status(200).json(zoo)
+    }else{
+      res.status(404).json({errorMessage: "This zoo does not exist"})
+    }
   }).catch(error => {
     res.status(500).json(error)
   })
